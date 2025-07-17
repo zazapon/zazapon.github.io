@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 title: "L3akCTF 2025 - pwn / The Goose(en)"
 date: 2025-07-15 04:54:07 +0900
 categories: writeups
@@ -12,7 +12,7 @@ You can either leak the result of `rand()` or synchronize the seed to predict ho
 
 Once that's cleared:
 
-- Leak a libc address via a format string bug
+- Leak a libc address via a Format String Bug
 - Trigger a buffer overflow in `read()`
 - Build a ROP chain and execute `system("/bin/sh")` to grab the flag 🔥
 
@@ -35,7 +35,7 @@ Once that's cleared:
    - If correct ✅ → continue
    - If wrong ❌ → game over
 3. Input your name again
-4. Input your victory message
+4. Input your victory message  
 <br>
 ![実行ファイルイメージ](/assets/images/1.png)
 <br><br>
@@ -96,7 +96,7 @@ $ x/s 0x555555558080
 
 ---
 
-## 2-a. Format String Vulnerability
+## 2-a. Format String Bug
 
 The program uses `printf(local_f8);` without any format string.\
 Classic case: it allows stack reads (and sometimes writes!) via `%p`, `%n`, etc.\
@@ -335,6 +335,7 @@ session.interactive()
 ```
 
 ---
+<br>
 
 # 💭 Final Thoughts
 
