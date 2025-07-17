@@ -16,7 +16,6 @@ Format String Bugでlibcのアドレスをリーク。
 
 # 問題について
 ***
-<br>
 
 **[説明文]**  
 When the honking gets tough, you better brush up on your basics.  
