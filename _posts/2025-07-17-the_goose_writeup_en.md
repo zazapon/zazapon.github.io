@@ -197,8 +197,8 @@ We want to run `system("/bin/sh")` so we need:
 
 - `ret` (for stack alignment)
 - `pop rdi; ret`
-- address of `"/bin/sh"`
-- address of `system`
+- `"/bin/sh"`
+- `system`
 
 ## 6. Resolving Offsets
 
