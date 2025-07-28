@@ -354,7 +354,7 @@ saved rbpにはbss領域のアドレスを入れています。最初は低位�
 <br>
 本来`puts()`で"welcome～"されますが、libcの`_IO_funlockfile`のアドレスの文字`\xd0\xbf\xe1\xf7\xff\x7f\`<br>
 として出力されています。puts()が呼ばれているのでループ成功です。🎉<br><br>
-`\x88UUUUは、書き換えたリターンアドレスなので今回は使いません。<br>
+`\x88UUUUは、書き換えたsaved rbpのアドレスなので今回は使いません。<br>
 
 ```python
 payload = b'b' *48
