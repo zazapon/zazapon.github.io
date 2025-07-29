@@ -31,6 +31,34 @@ pivot4bからGiftがなくなってしまいました...<br>
 ・`Dockerfile`:実行環境作成<br>
 ・`docker-compose.yml`:実行環境作成<br>
 
+ソースコードは以下の通りです。※貼り忘れてました；
+
+```c
+#include <stdio.h>
+#include <unistd.h>
+
+int vuln() {
+	char message[0x30];
+
+	printf("Welcome to the second pivot game!\n");
+
+	printf("> ");
+	read(0, message, sizeof(message) + 0x10);
+
+	printf("Message: %s\n", message);
+
+	return 0;
+}
+
+int main() {
+	setvbuf(stdin, NULL, _IONBF, 0);
+	setvbuf(stdout, NULL, _IONBF, 0);
+	alarm(120);
+
+	vuln();
+}
+```
+
 **[処理の流れ]**  
 1.メッセージの入力<br>
 →<br>
