@@ -198,8 +198,9 @@ setvbuf(stdin, NULL, _IONBF, 0);
 ```
 
 以下の結果をもとに、gdbでmain関数をみていきます。<br><br>
-vuln関数がmain関数へ戻るためのリターンアドレス`(0x55555555522b)`の下位1バイトを`2b`→`26`に書き換えれば、vuln関数の呼び出し前のところにループできそうだ。<br>
-もしくは12ビット(1.5バイト)は固定なので、2バイト書き換えて1/16の確率で狙ったところに飛ぶこともできそう！<br>
+vuln関数がmain関数へ戻るためのリターンアドレス`(0x55555555522b)`の下位1バイトを`2b`→`26`に書き換えれば、<br>
+vuln関数の呼び出し前のところにループできそうだ。<br><br>
+もしくは12ビット(1.5バイト)は固定なので、下位2バイトを書き換えて1/16の確率で狙ったところに飛ぶこともできそう！<br>
 
 ```bash
 gdb-peda$ disas main
@@ -373,7 +374,7 @@ Dump of assembler code for function vuln:
    0x00005555555551b0 <+55>:    mov    edi,0x0
    0x00005555555551b5 <+60>:    call   0x555555555060 <read@plt>
 ```
-saved rbpを変更することで制御できそうですね。
+saved rbpを変更することで、ループ後の`read()`で使われるrsi(書き込み先アドレス)の値を変更できそうですね。
 
 2回目はこんなペイロードになりました。<br>
 saved rbpにはbss領域のアドレスを入れています。最初は低位アドレスにしてたのですが、system関数の実行に失敗して<br>
@@ -391,7 +392,7 @@ payload += p64(program_base + binary.symbols['vuln'] + 18)
 [出力結果]
 b'Message: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb`\x88UUUU\n\xd0\xbf\xe1\xf7\xff\x7f\n> '
 ```
-2回目のpayload送信後のメモリの状態は以下のようになりました。
+2回目のpayload送信後のスタックの状態は以下のようになりました。
 
 ```bash
 gdb-peda$ x/8gx $rsi
