@@ -380,7 +380,7 @@ saved rbpを変更することで、ループ後の`read()`で使われるrsi(�
 saved rbpにはbss領域のアドレスを入れています。最初は低位アドレスにしてたのですが、system関数の実行に失敗して<br>
 高位アドレスにしてみたら成功しちゃいました。<br>
 <br>
-本来`puts()`で"welcome～"されますが、libcの`_IO_funlockfile`のアドレスの文字`\xd0\xbf\xe1\xf7\xff\x7f\`<br>
+本来`puts()`で"welcome～"されますが、libcの`_IO_funlockfile`のアドレスの文字`\xd0\xbf\xe1\xf7\xff\x7f`<br>
 として出力されています。puts()が呼ばれているのでループ成功です。🎉<br><br>
 `\x88UUUUは、書き換えたsaved rbpのアドレスなので今回は使いません。<br>
 
