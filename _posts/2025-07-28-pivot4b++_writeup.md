@@ -105,7 +105,6 @@ Welcome to the second pivot game!
 
 # **1回目のループ**
 <br>
-
 PIEが有効だ。。。😖<br>
 PIEが有効ってことは、プログラムの領域もASLRでランダム化の対象になるってことだ。。。
 
@@ -182,10 +181,10 @@ sendline(b'aaa')したとき
 0x7fffffffdae0: 0x000000000a616161
 ```
 
-一方で、send('aaa')すると改行が入りません。
+一方で、`send(b'aaa')`すると改行が入りません。
 
 ```bash
-send('aaa')したとき
+send(b'aaa')したとき
 
 0x7fffffffdae0: 0x0000000000616161
 ```
